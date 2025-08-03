@@ -174,13 +174,13 @@ def main():
         metrics = evaluate_model(model, X_test, y_test)  # Evaluate the model
         
         
-#        with Live(save_dvc_exp=True) as live:
-#            live.log_metric('accuracy', metrics['accuracy'])
-#            live.log_metric('precision', metrics['precision'])
-#            live.log_metric('recall', metrics['recall'])
-#            live.log_metric('roc_auc', metrics['roc_auc'])
-#            
-#            live.log_params(params)
+        with Live(save_dvc_exp=True) as live:
+            live.log_metric('accuracy', metrics['accuracy'])
+            live.log_metric('precision', metrics['precision'])
+            live.log_metric('recall', metrics['recall'])
+            live.log_metric('roc_auc', metrics['roc_auc'])
+            
+            live.log_params(params)
         
         save_evaluation_results(metrics, output_path)  # Save the evaluation results
         
