@@ -20,21 +20,8 @@ nltk.download('punkt', quiet=True)  # Download punkt tokenizer if not already do
 log_dir = 'logs'
 os.makedirs(log_dir, exist_ok=True)
 
-#LOGGING CONFIGURATION
-#To use a logger by creating a logger object
-#This object will have methods including handlers and formatters
-#A handler is responsible for sending the log messages to their final destination
-#A formatter is responsible for formatting the log messages
-#The handler can be divided into different types, such as console(stream), file, etc.
-#In case of console, the log messages will be printed to the console
-#nd in case of file, the log messages will be written to a file
 
-#There are multiple log levels, such as DEBUG, INFO, WARNING, ERROR, CRITICAL
-#DEBUG is the lowest level, and CRITICAL is the highest level
-
-#Handler and a formatter are used to configure the logger
-
-logger = logging.getLogger('data_preprocessing') #This will create a logger named 'data_ingestion'
+logger = logging.getLogger('data_preprocessing') #This will create a logger named 'data_preprocessing'
 logger.setLevel(logging.DEBUG) #Set the logging level to INFO
 
 
