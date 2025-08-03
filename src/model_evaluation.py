@@ -4,7 +4,8 @@ import pandas as pd
 import numpy as np
 import pickle
 import json
-
+from dvclive import Live
+from dvc.api import params_show
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_auc_score
 
@@ -157,6 +158,9 @@ def main():
     It will load the model, load the test data, evaluate the model, and save the evaluation results.
     """
     try:
+        
+        params= params_show()  # Load parameters from DVC params file
+        
         model_path = './models/model.pkl'  # Path to the trained model
         test_data_path = './data/processed/test_tfidf.csv'  # Path to the processed test data
         output_path = './reports/metrics.json'  # Path to save the evaluation results
@@ -169,7 +173,17 @@ def main():
         
         metrics = evaluate_model(model, X_test, y_test)  # Evaluate the model
         
+        
+#        with Live(save_dvc_exp=True) as live:
+#            live.log_metric('accuracy', metrics['accuracy'])
+#            live.log_metric('precision', metrics['precision'])
+#            live.log_metric('recall', metrics['recall'])
+#            live.log_metric('roc_auc', metrics['roc_auc'])
+#            
+#            live.log_params(params)
+        
         save_evaluation_results(metrics, output_path)  # Save the evaluation results
+        
         
     except Exception as e:
         logger.error(f"Failed to complete model evaluation: {e}")

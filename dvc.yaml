@@ -2,45 +2,46 @@ stages:
   data_ingestion:
     cmd: python src/data_ingestion.py
     deps:
-        - src/data_ingestion.py
+    - src/data_ingestion.py
     outs:
-        - data/raw
+    - data/raw
     params:
-        - data_ingestion.test_size
-        - data_ingestion.random_state
+    - data_ingestion.test_size
+    - data_ingestion.random_state
 
   data_preprocessing:
     cmd: python src/data_preprocessing.py
     deps:
-        - src/data_preprocessing.py
-        - data/raw
+    - src/data_preprocessing.py
+    - data/raw
     outs:
-        - data/interim
+    - data/interim
   feature_engineering:
     cmd: python src/feature_engineering.py
     deps:
-        - src/feature_engineering.py
-        - data/interim
+    - src/feature_engineering.py
+    - data/interim
     outs:
-        - data/processed
+    - data/processed
     params:
-        - feature_engineering.max_features
+    - feature_engineering.max_features
   model_training:
     cmd: python src/model_training.py
     deps:
-        - src/model_training.py
-        - data/processed
+    - src/model_training.py
+    - data/processed
     outs:
-        - models/model.pkl
+    - models/model.pkl
     params:
-        - model_training.n_estimators
-        - model_training.max_depth
-        - model_training.random_state
-    
+    - model_training.n_estimators
+    - model_training.max_depth
+    - model_training.random_state
+
   model_evaluation:
     cmd: python src/model_evaluation.py
     deps:
-        - src/model_evaluation.py
-        - models/model.pkl
+    - src/model_evaluation.py
+    - models/model.pkl
     metrics:
-        - reports/metrics.json
+    - reports/metrics.json
+
