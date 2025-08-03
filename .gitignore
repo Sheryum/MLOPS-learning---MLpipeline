@@ -209,8 +209,8 @@ __marimo__/
 
 
 #My files
-experiments/
+
 logs/
-data
+data/
 models/
 reports/
