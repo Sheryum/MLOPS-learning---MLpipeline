@@ -159,8 +159,8 @@ def main():
     try:
         model_path = './models/model.pkl'  # Path to the trained model
         test_data_path = './data/processed/test_tfidf.csv'  # Path to the processed test data
-        output_path = './results/evaluation_results.json'  # Path to save the evaluation results
-        
+        output_path = './reports/metrics.json'  # Path to save the evaluation results
+
         model = load_model(model_path)  # Load the trained model
         test_data = load_data(test_data_path)  # Load the test data
         
