@@ -76,7 +76,7 @@ def apply_tfidf(train_data: pd.DataFrame, test_data: pd.DataFrame, max_features:
     - max_features (int): The max number of features to consider for TF-IDF.
     
     Returns:
-    - (pd.DataFrame, pd.DataFrame): The transformed training and testing data.
+    - (pd.DataFrame, pd.DataFrame): The transformed training and testing data as a tuple
     """
     try:
         vectorizer = TfidfVectorizer(max_features=max_features)
