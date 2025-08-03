@@ -3,11 +3,13 @@ stages:
     cmd: python src/data_ingestion.py
     deps:
     - src/data_ingestion.py
-    outs:
-    - data/raw
+
     params:
     - data_ingestion.test_size
     - data_ingestion.random_state
+    outs:
+    - data/raw
+
 
   data_preprocessing:
     cmd: python src/data_preprocessing.py
@@ -44,6 +46,7 @@ stages:
     - models/model.pkl
     metrics:
     - reports/metrics.json
+
 
 params:
 - dvclive/params.yaml

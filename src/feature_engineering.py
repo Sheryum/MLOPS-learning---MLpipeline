@@ -1,12 +1,37 @@
 import pandas as pd
 import os
 import logging # Set up logging
-import dvc.api
+import yaml
 
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
+
+def load_yaml(file_path: str) -> dict:
+    """
+    Load a YAML file and return its content as a dictionary.
+    
+    Parameters:
+    - file_path (str): The path to the YAML file.
+    
+    Returns:
+    - dict: The content of the YAML file.
+    """
+    try:
+        with open(file_path, 'r') as file:
+            params = yaml.safe_load(file)
+        logger.debug(f"YAML file loaded successfully from {file_path}")
+        return params
+    except FileNotFoundError as e:
+        logger.error(f"File not found: {e}")
+        raise
+    except yaml.YAMLError as e:
+        logger.error(f"Error parsing YAML file: {e}")
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error while loading YAML file: {e}")
+        raise
 
 
 #------------------------------------------------------ LOGGER CONFIGURATION ------------------------------------------------------##This code is used to configure the logger for the data ingestion module
@@ -129,7 +154,7 @@ def main():
     """
     try:
         
-        params = dvc.api.params_show()  # Load parameters from DVC
+        params = load_yaml("params.yaml")  # Load parameters from DVC
          
         train_data_path = './data/interim/train_preprocessed.csv'  # Path to the preprocessed training data
         test_data_path = './data/interim/test_preprocessed.csv'    # Path to the preprocessed testing data  

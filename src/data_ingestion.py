@@ -2,7 +2,7 @@ import pandas as pd
 import os
 from sklearn.model_selection import train_test_split
 import logging # Set up logging
-import dvc.api
+import yaml
 
 
 
@@ -51,6 +51,32 @@ file_handler.setFormatter(formatter) #Set the formatter for the file handler
 logger.addHandler(console_handler) #Add the console handler to the logger
 logger.addHandler(file_handler) #Add the file handler to the logger
 
+
+
+def load_yaml(file_path: str) -> dict:
+    """
+    Load a YAML file and return its content as a dictionary.
+    
+    Parameters:
+    - file_path (str): The path to the YAML file.
+    
+    Returns:
+    - dict: The content of the YAML file.
+    """
+    try:
+        with open(file_path, 'r') as file:
+            params = yaml.safe_load(file)
+        logger.debug(f"YAML file loaded successfully from {file_path}")
+        return params
+    except FileNotFoundError as e:
+        logger.error(f"File not found: {e}")
+        raise
+    except yaml.YAMLError as e:
+        logger.error(f"Error parsing YAML file: {e}")
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error while loading YAML file: {e}")
+        raise
 
 
 
@@ -146,7 +172,7 @@ def main():
     Main function to execute the data ingestion process.
     """
     try:
-        params = dvc.api.params_show() # Load parameters from params.yaml
+        params = load_yaml("params.yaml") # Load parameters from params.yaml
         test_size = params["data_ingestion"]["test_size"] # Define the test size for splitting the data
         random_state = params["data_ingestion"]["random_state"] # Define the random state for reproducibility
         data_url = 'https://github.com/Sheryum/DATASETS/raw/refs/heads/main/spam.csv' # URL of the dataset
