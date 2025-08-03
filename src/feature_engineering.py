@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import logging # Set up logging
+import dvc.api
 
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -127,9 +128,12 @@ def main():
     It will load the data, apply TF-IDF transformation, and save the processed data.
     """
     try:
+        
+        params = dvc.api.params_show()  # Load parameters from DVC
+         
         train_data_path = './data/interim/train_preprocessed.csv'  # Path to the preprocessed training data
         test_data_path = './data/interim/test_preprocessed.csv'    # Path to the preprocessed testing data  
-        max_features = 50  # Max number of features for TF-IDF
+        max_features = params["feature_engineering"]["max_features"]  # Max number of features for TF-IDF
         
         train_data = load_data(train_data_path)  # Load training data
         test_data = load_data(test_data_path)    # Load testing data

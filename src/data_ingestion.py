@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from sklearn.model_selection import train_test_split
 import logging # Set up logging
+import dvc.api
 
 
 
@@ -145,9 +146,9 @@ def main():
     Main function to execute the data ingestion process.
     """
     try:
-        
-        test_size = 0.2 # Define the test size for splitting the data
-        random_state = 2 # Define the random state for reproducibility
+        params = dvc.api.params_show() # Load parameters from params.yaml
+        test_size = params["data_ingestion"]["test_size"] # Define the test size for splitting the data
+        random_state = params["data_ingestion"]["random_state"] # Define the random state for reproducibility
         data_url = 'https://github.com/Sheryum/DATASETS/raw/refs/heads/main/spam.csv' # URL of the dataset
         data_path = './data' # Path where the data will be saved
         # Load the data

@@ -3,6 +3,7 @@ import logging # Set up logging
 import pandas as pd
 import numpy as np
 import pickle
+import dvc.api
 
 from sklearn.ensemble import RandomForestClassifier
 
@@ -154,10 +155,8 @@ def main():
         logger.debug("Training data loaded successfully")
         
         # Define model parameters
-        params = {
-            'n_estimators': 25,
-            'random_state': 2
-        }
+        params = dvc.api.params_show()  # Load parameters from DVC
+        params = params["model_training"]
         
         # Train the model
         model = train_model(X_train, y_train, params)
